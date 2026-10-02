@@ -1,0 +1,1857 @@
+<!doctype html>
+
+<html dir="rtl" lang="fa">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width,initial-scale=1" name="viewport" />
+    <meta content="#101416" name="theme-color" />
+    <meta content="dark light" name="color-scheme" />
+    <title>مانیکس | پنل مدیریت Minecraft</title>
+    <link href="/static/icon.svg" rel="icon" type="image/svg+xml" />
+    <link href="/static/styles.css" rel="stylesheet" />
+    <script defer="" src="/static/app.js"></script>
+    <link href="/static/features.css" rel="stylesheet" />
+    <script defer="" src="/static/features.js"></script>
+  </head>
+  <body>
+    <div class="boot" id="boot">
+      <div class="brand-mark large" data-icon="cube"></div>
+      <p>در حال اتصال به پنل…</p>
+    </div>
+    <section class="login-screen" hidden="" id="loginScreen">
+      <div class="login-art">
+        <a class="brand" href="/"
+          ><span class="brand-mark" data-icon="cube"></span
+          ><span
+            >مانیکس<span class="brand-sub">پنل مدیریت Minecraft</span></span
+          ></a
+        >
+        <div class="login-copy">
+          <span class="eyebrow">دنیای تو، قوانین تو</span>
+          <h1>سرورت رو بساز.<br />دنیات رو مدیریت کن.</h1>
+          <p>
+            از اولین بلاک تا بزرگ‌ترین ماجراجویی؛<br />کنسول، سیو، نسخه‌ها و
+            مودها، همه در یک جا.
+          </p>
+          <div class="login-features">
+            <span><i data-icon="terminal"></i> کنسول زنده</span
+            ><span><i data-icon="box"></i> نصب مود</span
+            ><span><i data-icon="shield"></i> بکاپ دنیا</span>
+          </div>
+        </div>
+        <div aria-hidden="true" class="voxel-scene">
+          <div class="voxel v1"></div>
+          <div class="voxel v2"></div>
+          <div class="voxel v3"></div>
+          <div class="voxel v4"></div>
+          <div class="voxel v5"></div>
+          <div class="voxel v6"></div>
+          <div class="scene-ring"></div>
+        </div>
+        <span class="login-foot">مانیکس · Java Edition · کنترل دنیای تو</span>
+      </div>
+      <div class="login-form-wrap">
+        <form class="login-form" id="loginForm">
+          <div class="tiny-badge"><i data-icon="lock"></i> دسترسی مدیریت</div>
+          <h2>خوش برگشتی 👋</h2>
+          <p class="muted">برای مدیریت سرورت وارد پنل شو.</p>
+          <label
+            >نام کاربری<input
+              autocomplete="username"
+              dir="ltr"
+              id="loginUser"
+              maxlength="64"
+              required=""
+              value="admin"
+          /></label>
+          <label
+            >رمز عبور<input
+              autocomplete="current-password"
+              dir="ltr"
+              id="loginPassword"
+              maxlength="1024"
+              placeholder="رمزی که در Railway تنظیم کردی"
+              required=""
+              type="password"
+          /></label>
+          <label
+            >کد ۲FA یا کد بازیابی (اگر فعال است)<input
+              autocomplete="one-time-code"
+              dir="ltr"
+              id="loginOtp"
+              maxlength="80"
+              placeholder="برای حساب بدون ۲FA خالی بگذار"
+          /></label>
+          <p class="form-error" hidden="" id="loginError" role="alert"></p>
+          <button class="btn btn-primary full" type="submit">
+            ورود به پنل <i data-icon="arrow-left"></i>
+          </button>
+          <p class="login-note">
+            <i data-icon="info"></i> حساب مالک مانیکس ثبت‌نام عمومی ندارد. رمز
+            اولیه و بازیابی از Variables در Railway؛ تغییر رمز و ۲FA از «حساب و
+            امنیت» انجام می‌شود.
+          </p>
+        </form>
+      </div>
+    </section>
+    <div class="app" hidden="" id="app">
+      <aside class="sidebar" id="sidebar">
+        <a class="brand" href="#overview"
+          ><span class="brand-mark" data-icon="cube"></span
+          ><span>مانیکس<span class="brand-sub">پنل ماینکرافت</span></span></a
+        >
+        <div class="workspace-label">
+          فضای مدیریت <span class="mini-tag">JAVA</span>
+        </div>
+        <nav aria-label="منوی اصلی" id="navigation">
+          <a class="nav-item active" data-page="overview" href="#overview"
+            ><i data-icon="grid"></i><span>نمای کلی</span></a
+          >
+          <a class="nav-item" data-page="console" href="#console"
+            ><i data-icon="terminal"></i><span>کنسول زنده</span></a
+          >
+          <a class="nav-item" data-page="files" href="#files"
+            ><i data-icon="folder"></i><span>مدیریت فایل‌ها</span></a
+          >
+          <a class="nav-item" data-page="versions" href="#versions"
+            ><i data-icon="layers"></i><span>نسخه و هسته</span></a
+          >
+          <a class="nav-item" data-page="addons" href="#addons"
+            ><i data-icon="box"></i><span>مود و پلاگین</span></a
+          >
+          <a class="nav-item" data-page="players" href="#players"
+            ><i data-icon="users"></i><span>بازیکن‌ها</span></a
+          >
+          <a class="nav-item" data-page="worlds" href="#worlds"
+            ><i data-icon="globe"></i><span>دنیاها</span></a
+          ><a class="nav-item" data-page="packs" href="#packs"
+            ><i data-icon="box"></i><span>ریسورس‌پک</span></a
+          ><a class="nav-item" data-page="backups" href="#backups"
+            ><i data-icon="archive"></i><span>بکاپ و سیو</span></a
+          >
+          <a class="nav-item" data-page="schedules" href="#schedules"
+            ><i data-icon="clock"></i><span>زمان‌بندی</span></a
+          ><a class="nav-item" data-page="settings" href="#settings"
+            ><i data-icon="settings"></i><span>تنظیمات و دامنه</span></a
+          >
+          <a class="nav-item" data-page="account" href="#account"
+            ><i data-icon="shield"></i><span>حساب و امنیت</span></a
+          ><a class="nav-item" data-page="guide" href="#guide"
+            ><i data-icon="book"></i><span>راهنمای اتصال</span></a
+          >
+        </nav>
+        <div class="sidebar-bottom">
+          <div class="railway-label">
+            <i data-icon="server"></i>
+            <div>Railway<span>یک پنل، یک سرور بازی</span></div>
+            <span class="status-dot"></span>
+          </div>
+          <div class="sidebar-version">
+            <span id="appVersion">v1.1.0</span
+            ><span>ساخته‌شده برای دنیای تو</span>
+          </div>
+        </div>
+      </aside>
+      <div class="main-shell">
+        <header class="topbar">
+          <div class="topbar-title">
+            <button
+              aria-label="باز کردن منو"
+              class="icon-btn mobile-only"
+              id="menuToggle"
+            >
+              <i data-icon="menu"></i></button
+            ><span class="muted">پنل مدیریت</span><span class="slash">/</span
+            ><strong id="pageTitle">نمای کلی</strong>
+          </div>
+          <div class="topbar-actions">
+            <span class="top-date" id="topDate"></span
+            ><span class="top-divider"></span>
+            <div class="avatar">A</div>
+            <span id="accountName">admin</span
+            ><button
+              aria-label="خروج"
+              class="icon-btn"
+              id="logout"
+              title="خروج"
+            >
+              <i data-icon="logout"></i></button
+            ><button
+              aria-label="تغییر حالت روشن و تاریک"
+              class="icon-btn"
+              id="themeToggle"
+              title="تغییر حالت روشن و تاریک"
+            >
+              <i data-icon="sparkles"></i>
+            </button>
+          </div>
+        </header>
+        <main class="main-content">
+          <div class="notice warning" hidden="" id="connectionWarning">
+            <i data-icon="wifi"></i
+            ><span>ارتباط با پنل قطع شده؛ در حال تلاش مجدد…</span>
+          </div>
+          <div class="job-banner" hidden="" id="jobBanner">
+            <div class="spinner" id="jobSpinner"></div>
+            <i data-icon="check" hidden="" id="jobCheck"></i>
+            <div>
+              <strong id="jobTitle"></strong><span id="jobMessage"></span>
+            </div>
+            <a class="btn btn-small btn-primary" hidden="" id="jobDownload"
+              ><i data-icon="download"></i> دانلود</a
+            ><button aria-label="بستن اعلان" class="icon-btn" id="jobDismiss">
+              <i data-icon="x"></i>
+            </button>
+          </div>
+          <section class="page" data-section="overview">
+            <div class="page-heading">
+              <div>
+                <span class="eyebrow">خوش اومدی به خونهٔ سرورت</span>
+                <h1>همه‌چیز تحت کنترل.</h1>
+                <p>وضعیت زنده و ابزارهای اصلی، بدون پیچیدگی.</p>
+              </div>
+              <span class="live-tag"
+                ><span class="status-dot"></span> به‌روزرسانی زنده</span
+              >
+            </div>
+            <div class="notice setup-notice" hidden="" id="setupNotice">
+              <span class="notice-symbol" data-icon="sparkles"></span>
+              <div>
+                <strong>اولین ماجراجویی از اینجا شروع می‌شود.</strong>
+                <p>یک هسته و نسخه نصب کن، EULA را بخوان و سرورت را روشن کن.</p>
+              </div>
+              <button class="btn btn-primary" data-goto="versions">
+                انتخاب نسخه <i data-icon="arrow-left"></i>
+              </button>
+            </div>
+            <div class="server-card card">
+              <div class="server-card-top">
+                <div class="server-identity">
+                  <div class="server-illustration" data-icon="cube"></div>
+                  <div>
+                    <div class="title-line">
+                      <h2 id="serverName">سرور مانیکس</h2>
+                      <span class="state-tag" id="serverStatus"
+                        >در حال اتصال</span
+                      >
+                    </div>
+                    <div class="engine-tags">
+                      <span id="engineName">هسته نصب نشده</span
+                      ><span class="dot-separator">·</span
+                      ><span dir="ltr" id="engineVersion">Java Edition</span
+                      ><span class="dot-separator">·</span
+                      ><span dir="ltr" id="engineJava">—</span>
+                    </div>
+                  </div>
+                </div>
+                <span class="server-id" dir="ltr">MANIX / 01</span>
+              </div>
+              <div class="server-card-bottom">
+                <button
+                  class="address-box"
+                  id="copyAddress"
+                  title="کپی آدرس اتصال"
+                >
+                  <i data-icon="globe"></i
+                  ><span dir="ltr" id="serverAddress"
+                    >TCP Proxy را در Railway فعال کن</span
+                  ><i data-icon="copy"></i>
+                </button>
+                <div class="power-actions">
+                  <button class="btn btn-primary" data-power="start">
+                    <i data-icon="play"></i> روشن کردن</button
+                  ><button class="btn" data-power="restart">
+                    <i data-icon="refresh"></i> ری‌استارت</button
+                  ><button class="btn btn-danger-ghost" data-power="stop">
+                    <i data-icon="power"></i> خاموش کردن</button
+                  ><button class="btn btn-danger-ghost" data-power="kill">
+                    <i data-icon="x"></i> Kill اجباری
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="stats-grid">
+              <article class="stat-card card">
+                <div class="stat-top">
+                  <span>پردازنده</span><i data-icon="cpu"></i>
+                </div>
+                <div class="stat-value">
+                  <span id="statCpu">—</span><small>%</small>
+                </div>
+                <progress id="cpuProgress" max="100" value="0"></progress
+                ><span class="stat-caption">مصرف فرایند، نسبت به یک هسته</span>
+              </article>
+              <article class="stat-card card">
+                <div class="stat-top">
+                  <span>حافظهٔ بازی</span><i data-icon="memory"></i>
+                </div>
+                <div class="stat-value">
+                  <span id="statRam">—</span><small>MB</small>
+                </div>
+                <progress id="ramProgress" max="1024" value="0"></progress
+                ><span class="stat-caption" id="ramCaption"
+                  >مصرف واقعی JVM (heap + native)</span
+                >
+              </article>
+              <article class="stat-card card">
+                <div class="stat-top">
+                  <span>بازیکن‌های آنلاین</span><i data-icon="users"></i>
+                </div>
+                <div class="stat-value">
+                  <span id="statPlayers">—</span
+                  ><small id="statPlayersMax">/ —</small>
+                </div>
+                <div aria-hidden="true" class="player-dots">
+                  <b></b><b></b><b></b><b></b><b></b>
+                </div>
+                <span class="stat-caption">از پاسخ زندهٔ سرور بازی</span>
+              </article>
+              <article class="stat-card card">
+                <div class="stat-top">
+                  <span>فضای ذخیره‌سازی</span><i data-icon="disk"></i>
+                </div>
+                <div class="stat-value">
+                  <span id="statDisk">—</span><small>GB</small>
+                </div>
+                <progress id="diskProgress" max="100" value="0"></progress
+                ><span class="stat-caption" id="diskCaption"
+                  >فایل‌سیستم محل داده‌ها</span
+                >
+              </article>
+            </div>
+            <article class="card node-strip">
+              <div>
+                <span class="eyebrow">نود مانیکس · همین سرویس</span
+                ><strong id="nodeName">در حال اندازه‌گیری…</strong>
+                <p class="small-note" id="nodeInfo">—</p>
+              </div>
+              <div>
+                <span class="muted">شبکهٔ کل سرویس</span>
+                <p dir="ltr" id="networkRate">↓ — KB/s · ↑ — KB/s</p>
+                <p class="small-note" id="networkTotal">
+                  شامل پنل، بازی و دانلود هسته
+                </p>
+              </div>
+              <div>
+                <span class="muted">حافظهٔ نود و سهمیه</span>
+                <p id="nodeMemory">—</p>
+                <p class="small-note" id="nodeUptime">—</p>
+              </div>
+            </article>
+            <div class="notice warning" hidden="" id="resourceWarning">
+              <i data-icon="info"></i><span></span>
+            </div>
+            <div class="dashboard-grid">
+              <article class="card console-card">
+                <div class="card-heading">
+                  <h3><i data-icon="terminal"></i> آخرین اتفاق‌های سرور</h3>
+                  <a class="text-link" href="#console"
+                    >کنسول کامل <i data-icon="arrow-left"></i
+                  ></a>
+                </div>
+                <div
+                  class="console-output mini-console"
+                  dir="ltr"
+                  id="miniConsole"
+                >
+                  <div class="console-empty">منتظر اولین خروجی سرور…</div>
+                </div>
+                <form class="command-form" data-command-form="">
+                  <span class="console-prompt" dir="ltr">&gt;_</span
+                  ><input
+                    aria-label="دستور کنسول"
+                    autocomplete="off"
+                    dir="ltr"
+                    maxlength="1024"
+                    name="command"
+                    placeholder="list, say Hello, time set day…"
+                  /><button
+                    aria-label="ارسال دستور"
+                    class="icon-btn"
+                    type="submit"
+                  >
+                    <i data-icon="send"></i>
+                  </button>
+                </form>
+              </article>
+              <div class="dashboard-side">
+                <article class="card chart-card">
+                  <div class="card-heading">
+                    <h3>حافظه در یک دقیقهٔ اخیر</h3>
+                    <span class="mini-tag">LIVE</span>
+                  </div>
+                  <canvas
+                    aria-label="نمودار مصرف رم واقعی"
+                    height="115"
+                    id="memoryChart"
+                    role="img"
+                  ></canvas>
+                  <div class="chart-footer">
+                    <span id="chartMax">— MB</span
+                    ><span>اکنون ← یک دقیقه قبل</span>
+                  </div>
+                </article>
+                <article class="card quick-card">
+                  <div class="card-heading">
+                    <h3>دنیات رو همراهت ببر</h3>
+                    <i data-icon="download"></i>
+                  </div>
+                  <p>سیو Overworld، Nether و End را یکجا دانلود کن.</p>
+                  <button class="btn full" data-world-export="">
+                    <i data-icon="download"></i> دانلود سیو سرور</button
+                  ><span class="small-note"
+                    >برای خروجی سالم، بازی موقتاً متوقف می‌شود.</span
+                  >
+                </article>
+              </div>
+            </div>
+            <div class="two-column dashboard-extra-charts">
+              <article class="card chart-card">
+                <div class="card-heading">
+                  <h3>CPU بازی · یک دقیقهٔ اخیر</h3>
+                  <span class="mini-tag">%</span>
+                </div>
+                <canvas
+                  aria-label="نمودار مصرف CPU بازی"
+                  height="115"
+                  id="cpuChart"
+                  role="img"
+                ></canvas>
+                <div class="chart-footer">
+                  <span id="cpuChartMax">—</span><span>نسبت به یک هسته</span>
+                </div>
+              </article>
+              <article class="card chart-card">
+                <div class="card-heading">
+                  <h3>دیسک · یک دقیقهٔ اخیر</h3>
+                  <span class="mini-tag">GB</span>
+                </div>
+                <canvas
+                  aria-label="نمودار مصرف فایل‌سیستم"
+                  height="115"
+                  id="diskChart"
+                  role="img"
+                ></canvas>
+                <div class="chart-footer">
+                  <span id="diskChartMax">—</span
+                  ><span>نمونه‌برداری هر ۳۰ ثانیه</span>
+                </div>
+              </article>
+            </div>
+            <div class="overview-footer">
+              <span
+                ><span class="status-dot"></span>
+                <span id="uptime">بازی خاموش است</span></span
+              ><a class="text-link" href="#guide"
+                >برای وصل شدن کمک می‌خواهی؟ <i data-icon="arrow-left"></i
+              ></a>
+            </div>
+          </section>
+          <section class="page" data-section="console" hidden="">
+            <div class="page-heading">
+              <div>
+                <span class="eyebrow">از پشت صحنه تا داخل بازی</span>
+                <h1>کنسول زنده</h1>
+                <p>
+                  دستورها مستقیم به فرایند Minecraft می‌روند؛ این ترمینال VPS
+                  نیست.
+                </p>
+              </div>
+              <a class="btn" href="/api/console/download"
+                ><i data-icon="download"></i> دانلود لاگ</a
+              >
+            </div>
+            <article class="card">
+              <div class="card-heading">
+                <h3><i data-icon="terminal"></i> خروجی سرور و نصاب</h3>
+                <div class="row-actions">
+                  <label class="inline-check"
+                    ><input checked="" id="autoScroll" type="checkbox" /> اسکرول
+                    خودکار</label
+                  ><button
+                    aria-label="پاک کردن نمایش کنسول"
+                    class="icon-btn"
+                    id="clearConsole"
+                    title="پاک کردن نمایش کنسول"
+                  >
+                    <i data-icon="trash"></i>
+                  </button>
+                </div>
+              </div>
+              <div
+                class="console-output full-console"
+                dir="ltr"
+                id="fullConsole"
+              >
+                <div class="console-empty">منتظر خروجی سرور…</div>
+              </div>
+              <form class="command-form" data-command-form="">
+                <span class="console-prompt" dir="ltr">&gt;_</span
+                ><input
+                  aria-label="دستور کنسول"
+                  autocomplete="off"
+                  dir="ltr"
+                  maxlength="1024"
+                  name="command"
+                  placeholder="دستور را بنویس و Enter بزن"
+                /><button class="btn btn-primary" type="submit">
+                  <i data-icon="send"></i> ارسال
+                </button>
+              </form>
+            </article>
+            <div class="quick-commands">
+              <span class="muted">دستورهای سریع:</span
+              ><button class="btn btn-small" data-command="list">
+                بازیکن‌ها</button
+              ><button class="btn btn-small" data-command="save-all flush">
+                ذخیره دنیا</button
+              ><button class="btn btn-small" data-command="weather clear">
+                هوای صاف</button
+              ><button class="btn btn-small" data-command="time set day">
+                روز کردن</button
+              ><button class="btn btn-small" data-command="whitelist on">
+                فعال کردن وایت‌لیست
+              </button>
+            </div>
+            <div class="notice">
+              <i data-icon="info"></i
+              ><span
+                >برای خاموش کردن از دکمهٔ خاموش پنل استفاده کن. لاگ Minecraft یا
+                مودها ممکن است آدرس IP بازیکن‌ها را نشان دهد؛ آن را عمومی
+                نکن.</span
+              >
+            </div>
+          </section>
+          <section class="page" data-section="files" hidden="">
+            <div class="page-heading">
+              <div>
+                <span class="eyebrow">تمام فایل‌های دنیای تو</span>
+                <h1>مدیریت فایل‌ها</h1>
+                <p>آپلود مود، ویرایش تنظیمات، دریافت سیو و باز کردن ZIP.</p>
+              </div>
+              <div class="row-actions">
+                <button class="btn" id="newFolder">
+                  <i data-icon="folder-plus"></i> پوشه جدید</button
+                ><button class="btn" id="newFile">
+                  <i data-icon="file-plus"></i> فایل جدید</button
+                ><button class="btn btn-primary" id="uploadFiles">
+                  <i data-icon="upload"></i> آپلود</button
+                ><input
+                  hidden=""
+                  id="fileUploadInput"
+                  multiple=""
+                  type="file"
+                />
+              </div>
+            </div>
+            <div class="notice warning">
+              <i data-icon="shield"></i
+              ><span
+                >برای آپلود، تغییر یا پاک کردن فایل‌ها، بازی باید خاموش باشد.
+                برای سیوِ بازیِ روشن از «دانلود سیو» استفاده کن.</span
+              >
+            </div>
+            <article class="card files-card" id="fileDropZone">
+              <div class="file-toolbar">
+                <div class="breadcrumbs" id="fileBreadcrumb"></div>
+                <button
+                  aria-label="تازه کردن فایل‌ها"
+                  class="icon-btn"
+                  id="refreshFiles"
+                  title="تازه کردن فایل‌ها"
+                >
+                  <i data-icon="refresh"></i>
+                </button>
+              </div>
+              <div class="file-searchbar">
+                <label class="search-label"
+                  ><i data-icon="search"></i
+                  ><input
+                    aria-label="جستجوی فایل"
+                    id="fileSearch"
+                    maxlength="100"
+                    placeholder="جستجوی نام فایل…" /></label
+                ><select aria-label="فیلتر نوع فایل" id="fileTypeFilter">
+                  <option value="all">همه</option>
+                  <option value="files">فایل‌ها</option>
+                  <option value="dirs">پوشه‌ها</option></select
+                ><label class="inline-check"
+                  ><input id="fileRecursive" type="checkbox" /> جستجوی
+                  زیرپوشه‌ها</label
+                >
+              </div>
+              <p id="fileSearchLimit" class="search-limit small-note"></p>
+              <div class="bulk-toolbar">
+                <span id="selectedFileCount">هیچ موردی انتخاب نشده</span>
+                <div class="row-actions">
+                  <button
+                    class="btn btn-small"
+                    data-mutate=""
+                    id="copySelected"
+                  >
+                    <i data-icon="copy"></i> کپی</button
+                  ><button
+                    class="btn btn-small"
+                    data-mutate=""
+                    id="moveSelected"
+                  >
+                    <i data-icon="folder"></i> انتقال</button
+                  ><button
+                    class="btn btn-small btn-danger-ghost"
+                    data-mutate=""
+                    id="deleteSelected"
+                  >
+                    <i data-icon="trash"></i> حذف گروهی</button
+                  ><button
+                    class="text-link plain-button"
+                    id="clearFileSelection"
+                  >
+                    لغو انتخاب
+                  </button>
+                </div>
+              </div>
+              <div class="table-scroll">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th class="select-col">
+                        <input
+                          aria-label="انتخاب موارد این صفحه"
+                          id="fileSelectAll"
+                          type="checkbox"
+                        />
+                      </th>
+                      <th>نام</th>
+                      <th>حجم</th>
+                      <th>آخرین تغییر</th>
+                      <th class="actions-col">عملیات</th>
+                    </tr>
+                  </thead>
+                  <tbody id="fileRows"></tbody>
+                </table>
+              </div>
+              <div class="table-footer">
+                <span id="fileCount">—</span
+                ><span
+                  >فایل‌ها را اینجا بکش و رها کن ·
+                  <span id="uploadLimit">—</span></span
+                >
+                <div class="row-actions">
+                  <button
+                    aria-label="صفحهٔ قبلی فایل‌ها"
+                    class="icon-btn"
+                    id="filesPrev"
+                  >
+                    <i data-icon="arrow-left"></i></button
+                  ><span id="filesPageInfo"></span
+                  ><button
+                    aria-label="صفحهٔ بعدی فایل‌ها"
+                    class="icon-btn"
+                    id="filesNext"
+                  >
+                    <i data-icon="arrow-left"></i>
+                  </button>
+                </div>
+              </div>
+            </article>
+            <div class="notice">
+              <i data-icon="book"></i
+              ><span
+                >برای وارد کردن سیو، اگر ZIP شامل پوشهٔ world است، در ریشه
+                Extract کن؛ اگر level.dat در ریشهٔ ZIP است، داخل پوشهٔ world
+                Extract کن.</span
+              >
+            </div>
+          </section>
+          <section class="page" data-section="versions" hidden="">
+            <div class="page-heading">
+              <div>
+                <span class="eyebrow">یک شروع تازه، با هستهٔ دلخواه</span>
+                <h1>نسخه و هستهٔ سرور</h1>
+                <p>
+                  نسخه‌ها از فهرست رسمی سازندگان دریافت می‌شوند؛ فقط نسخه‌های
+                  پایدار Minecraft.
+                </p>
+              </div>
+            </div>
+            <div class="loader-grid" id="loaderGrid"></div>
+            <div class="two-column">
+              <article class="card padded">
+                <div class="card-heading compact">
+                  <h3>انتخاب نسخهٔ Minecraft</h3>
+                  <span class="mini-tag" id="selectedKind">Paper</span>
+                </div>
+                <p class="muted" id="loaderHelp"></p>
+                <form id="versionForm">
+                  <label
+                    >جستجوی نسخه<input
+                      dir="ltr"
+                      id="versionFilter"
+                      placeholder="مثلاً 1.21.1 یا 26.3" /></label
+                  ><label
+                    >نسخه<select dir="ltr" id="versionSelect" required="">
+                      <option value="">در حال دریافت…</option>
+                    </select></label
+                  ><label class="check-block"
+                    ><input id="allowDowngrade" type="checkbox" /><span
+                      >خطر خراب شدن دنیا هنگام بازگشت به نسخهٔ قدیمی‌تر را
+                      می‌پذیرم.</span
+                    ></label
+                  ><button
+                    class="btn btn-primary full"
+                    id="installVersion"
+                    type="submit"
+                  >
+                    <i data-icon="download"></i> نصب نسخهٔ انتخاب‌شده
+                  </button>
+                  <p class="form-error" hidden="" id="versionError"></p>
+                </form>
+              </article>
+              <article class="card padded version-notes">
+                <span class="notice-symbol" data-icon="shield"></span>
+                <h3>سیوت را بی‌احتیاط جابه‌جا نکن.</h3>
+                <ul>
+                  <li>
+                    بازی باید خاموش باشد. قبل از تغییر، بکاپ کامل گرفته می‌شود.
+                  </li>
+                  <li>
+                    دنیا پاک نمی‌شود؛ اما Downgrade در خود Minecraft ممکن است
+                    دنیا را خراب کند.
+                  </li>
+                  <li>
+                    مودها و پلاگین‌های احتمالاً ناسازگار حذف نمی‌شوند؛ JARهایشان
+                    به <code>disabled-addons</code> منتقل می‌شود.
+                  </li>
+                  <li>
+                    برای مود، Fabric / Forge / NeoForge انتخاب کن. برای پلاگین،
+                    Paper / Purpur.
+                  </li>
+                  <li>
+                    تنظیم Java روی «خودکار» باشد تا از نسخهٔ مناسب استفاده شود.
+                    Vanilla مود اجرا نمی‌کند.
+                  </li>
+                </ul>
+                <div class="notice warning">
+                  <i data-icon="info"></i
+                  ><span
+                    >اول از بکاپ مهمت یک نسخه روی کامپیوتر ذخیره کن؛ بکاپ روی
+                    همان Volume جای نسخهٔ خارج از سرور را نمی‌گیرد.</span
+                  >
+                </div>
+              </article>
+            </div>
+            <div class="two-column spaced-card">
+              <article class="card padded">
+                <h3><i data-icon="upload"></i> JAR دستی / Spigot</h3>
+                <p class="muted">
+                  JAR اجرایی سرورِ مورداعتماد خودت، نه نصاب یا پلاگین. مانیکس
+                  BuildTools را اجرا یا Spigot را از سایت غیررسمی دانلود
+                  نمی‌کند.
+                </p>
+                <form id="customJarForm">
+                  <div class="form-grid">
+                    <label
+                      >نوع<select name="kind">
+                        <option value="spigot">
+                          Spigot — ساخته‌شده توسط خودت
+                        </option>
+                        <option value="custom">JAR سفارشی Java</option>
+                      </select></label
+                    ><label
+                      >نسخهٔ Minecraft<input
+                        dir="ltr"
+                        maxlength="48"
+                        name="version"
+                        placeholder="1.21.1"
+                        required="" /></label
+                    ><label
+                      >Java لازم<select dir="ltr" name="java">
+                        <option value="8">Java 8</option>
+                        <option value="17">Java 17</option>
+                        <option selected="" value="21">Java 21</option>
+                        <option value="25">Java 25</option>
+                      </select></label
+                    ><label
+                      >فایل سرور<input
+                        accept=".jar"
+                        name="file"
+                        required=""
+                        type="file"
+                    /></label>
+                  </div>
+                  <label class="check-block"
+                    ><input name="allow_downgrade" type="checkbox" /><span
+                      >خطر Downgrade دنیا را می‌پذیرم.</span
+                    ></label
+                  ><button
+                    class="btn btn-primary full"
+                    data-mutate=""
+                    type="submit"
+                  >
+                    آپلود و فعال کردن هسته
+                  </button>
+                </form>
+              </article>
+              <article class="card padded">
+                <h3>هسته‌های روی Volume</h3>
+                <p class="small-note">
+                  هستهٔ فعال پاک نمی‌شود. حذف یک هستهٔ قدیمی ممکن است بازیابی
+                  بکاپ وابسته را به نصب مجدد همان نسخه نیازمند کند.
+                </p>
+                <div class="runtime-list" id="runtimeRows"></div>
+              </article>
+            </div>
+          </section>
+          <section class="page" data-section="addons" hidden="">
+            <div class="page-heading">
+              <div>
+                <span class="eyebrow">سرور معمولی؟ نه برای تو.</span>
+                <h1>مود و پلاگین</h1>
+                <p>نصب از Modrinth با بررسی نسخه، لودر و وابستگی‌های ضروری.</p>
+              </div>
+              <button class="btn" id="manualAddon">
+                <i data-icon="upload"></i> آپلود دستی JAR
+              </button>
+            </div>
+            <div class="notice" id="addonContext">
+              <i data-icon="box"></i><span>در حال بررسی هستهٔ سرور…</span>
+            </div>
+            <article class="card padded">
+              <div class="card-heading compact">
+                <h3>جستجو در Modrinth</h3>
+                <span class="mini-tag">SERVER-SIDE</span>
+              </div>
+              <form class="search-form" id="addonSearchForm">
+                <div class="input-icon">
+                  <i data-icon="search"></i
+                  ><input
+                    aria-label="نام مود یا پلاگین"
+                    dir="auto"
+                    id="addonQuery"
+                    maxlength="100"
+                    placeholder="نام مود یا پلاگین، مثلاً Lithium"
+                  />
+                </div>
+                <button class="btn btn-primary" type="submit">جستجو</button>
+              </form>
+              <div class="addon-search-grid" id="addonSearchResults">
+                <div class="empty-state">
+                  <i data-icon="search"></i>
+                  <p>نام یک افزونه را جستجو کن.</p>
+                </div>
+              </div>
+              <div class="pagination" hidden="" id="addonPagination">
+                <button class="btn btn-small" id="addonsPrev">قبلی</button
+                ><span id="addonsResultCount"></span
+                ><button class="btn btn-small" id="addonsNext">بعدی</button>
+              </div>
+            </article>
+            <article class="card spaced-card">
+              <div class="card-heading">
+                <h3>افزونه‌های موجود</h3>
+                <button
+                  aria-label="تازه کردن افزونه‌ها"
+                  class="icon-btn"
+                  id="refreshAddons"
+                >
+                  <i data-icon="refresh"></i>
+                </button>
+              </div>
+              <div class="table-scroll">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>افزونه / فایل</th>
+                      <th>نسخه</th>
+                      <th>وضعیت</th>
+                      <th>عملیات</th>
+                    </tr>
+                  </thead>
+                  <tbody id="installedAddons"></tbody>
+                </table>
+              </div>
+            </article>
+            <p class="small-note">
+              مود کلاینتی را روی سرور نصب نکن. Modrinth همهٔ پروژه‌های
+              CurseForge را ندارد؛ فایل قانونی JAR را می‌توانی دستی آپلود کنی.
+              مود و پلاگین کد اجرایی‌اند؛ فقط به منابع مورداعتماد اجازه بده.
+            </p>
+          </section>
+          <section class="page" data-section="players" hidden="">
+            <div class="page-heading">
+              <div>
+                <span class="eyebrow">آدم‌های دنیای تو</span>
+                <h1>مدیریت بازیکن‌ها</h1>
+                <p>OP، وایت‌لیست، بن و کیک از طریق کنسول واقعی سرور.</p>
+              </div>
+              <button class="btn" id="refreshPlayers">
+                <i data-icon="refresh"></i> تازه کردن
+              </button>
+            </div>
+            <article class="card padded">
+              <div class="player-search">
+                <label class="search-label"
+                  ><i data-icon="search"></i
+                  ><input
+                    id="playerSearch"
+                    maxlength="100"
+                    placeholder="جستجو در آنلاین، OP، وایت‌لیست و بن…"
+                /></label>
+              </div>
+              <form class="player-form" id="playerActionForm">
+                <label
+                  >نام بازیکن<input
+                    dir="ltr"
+                    id="playerName"
+                    maxlength="64"
+                    placeholder="PlayerName / IP"
+                    required="" /></label
+                ><label
+                  >عملیات<select id="playerAction">
+                    <option value="whitelist_add">اضافه به وایت‌لیست</option>
+                    <option value="whitelist_remove">حذف از وایت‌لیست</option>
+                    <option value="op">دادن OP</option>
+                    <option value="deop">گرفتن OP</option>
+                    <option value="kick">کیک</option>
+                    <option value="ban">بن کردن</option>
+                    <option value="pardon">رفع بن</option>
+                    <option value="ban_ip">بن IP</option>
+                    <option value="pardon_ip">رفع بن IP</option>
+                    <option value="whitelist_on">فعال کردن وایت‌لیست</option>
+                    <option value="whitelist_off">
+                      غیرفعال کردن وایت‌لیست
+                    </option>
+                    <option value="command">دستور روی بازیکن</option>
+                  </select></label
+                ><label
+                  >دلیل (اختیاری)<input
+                    id="playerReason"
+                    maxlength="200"
+                    placeholder="برای کیک یا بن" /></label
+                ><button class="btn btn-primary" type="submit">اجرا</button
+                ><label class="span-two" hidden="" id="targetCommandLabel"
+                  >دستور با جایگزین {player}<input
+                    dir="ltr"
+                    id="playerCommand"
+                    maxlength="1000"
+                    placeholder="give {player} minecraft:diamond 1"
+                /></label>
+              </form>
+            </article>
+            <div class="player-lists" id="playerLists"></div>
+            <div class="notice">
+              <i data-icon="info"></i
+              ><span
+                >مانیکس دستور <code>list</code> را برای فهرست کامل می‌خواند؛ اگر
+                فرمت کنسول قابل‌تشخیص نباشد، نمونهٔ Status نمایش داده می‌شود.
+                زمان ورود فقط از لاگ‌های مشاهده‌شده ثبت می‌شود.
+                <b
+                  >IP پشت TCP Proxy ممکن است IP واقعی بازیکن نباشد؛ قبل از IP
+                  Ban بررسی کن.</b
+                ></span
+              >
+            </div>
+          </section>
+          <section class="page" data-section="backups" hidden="">
+            <div class="page-heading">
+              <div>
+                <span class="eyebrow">برای روز مبادا</span>
+                <h1>بکاپ و سیو دنیا</h1>
+                <p>دنیات، مودها، پلاگین‌ها و تنظیمات را نگه دار.</p>
+              </div>
+              <div class="row-actions">
+                <button class="btn" id="importBackup">
+                  <i data-icon="upload"></i> وارد کردن بکاپ</button
+                ><input
+                  accept=".zip"
+                  hidden=""
+                  id="backupUploadInput"
+                  type="file"
+                /><button class="btn" data-world-export="">
+                  <i data-icon="download"></i> دانلود فقط سیو</button
+                ><button class="btn btn-primary" id="createBackup">
+                  <i data-icon="archive"></i> بکاپ کامل
+                </button>
+              </div>
+            </div>
+            <div class="notice">
+              <i data-icon="shield"></i
+              ><span
+                >بکاپ کامل شامل فایل‌های بازی است؛ رمز پنل در آن نیست. هنگام
+                بکاپِ بازیِ روشن، بازی موقتاً متوقف و سپس دوباره اجرا می‌شود.
+                بازیابی فقط در حالت خاموش مجاز است.</span
+              >
+            </div>
+            <article class="card">
+              <div class="card-heading">
+                <h3>بکاپ‌های ذخیره‌شده</h3>
+                <button
+                  aria-label="تازه کردن بکاپ‌ها"
+                  class="icon-btn"
+                  id="refreshBackups"
+                >
+                  <i data-icon="refresh"></i>
+                </button>
+              </div>
+              <div class="table-scroll">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>نام بکاپ</th>
+                      <th>زمان ذخیره</th>
+                      <th>حجم</th>
+                      <th>عملیات</th>
+                    </tr>
+                  </thead>
+                  <tbody id="backupRows"></tbody>
+                </table>
+              </div>
+            </article>
+            <div class="two-column spaced-card">
+              <article class="card padded">
+                <h3><i data-icon="clock"></i> بکاپ خودکار</h3>
+                <p class="muted">
+                  فاصلهٔ زمانی و تعداد بکاپ‌های خودکار را از تنظیمات انتخاب کن.
+                  بکاپ‌های دستی خودکار پاک نمی‌شوند.
+                </p>
+                <button class="btn btn-small" data-goto="settings">
+                  تنظیم زمان‌بندی <i data-icon="arrow-left"></i>
+                </button>
+              </article>
+              <article class="card padded">
+                <h3><i data-icon="download"></i> یک نسخه خارج از Railway</h3>
+                <p class="muted">
+                  پاک شدن Volume، بکاپ‌های داخلش را هم پاک می‌کند. فایل ZIP مهمت
+                  را روی کامپیوتر یا فضای دیگری نگه دار و برای حفاظت بیشتر از
+                  بکاپ خود Railway هم استفاده کن.
+                </p>
+              </article>
+            </div>
+          </section>
+          <section class="page" data-section="settings" hidden="">
+            <div class="page-heading">
+              <div>
+                <span class="eyebrow">متناسب با دنیای تو</span>
+                <h1>تنظیمات و دامنه</h1>
+                <p>منابع، قوانین بازی، راه‌اندازی خودکار و آدرس اتصال.</p>
+              </div>
+            </div>
+            <div class="two-column">
+              <article class="card padded">
+                <h3><i data-icon="settings"></i> منابع و رفتار پنل</h3>
+                <form id="configForm">
+                  <div class="form-grid">
+                    <label class="span-two"
+                      >نام نمایشی سرور<input
+                        maxlength="80"
+                        name="server_name"
+                        required="" /></label
+                    ><label
+                      >Heap بازی (MB)<input
+                        dir="ltr"
+                        max="65536"
+                        min="512"
+                        name="memory_mb"
+                        required=""
+                        step="128"
+                        type="number" /></label
+                    ><label
+                      >نسخه Java<select dir="ltr" name="java_override">
+                        <option value="0">Auto — خودکار</option>
+                        <option value="8">Java 8</option>
+                        <option value="17">Java 17</option>
+                        <option value="21">Java 21</option>
+                        <option value="25">Java 25</option>
+                      </select></label
+                    ><label
+                      >پورت داخلی بازی<input
+                        dir="ltr"
+                        max="65535"
+                        min="1024"
+                        name="game_port"
+                        required=""
+                        type="number" /></label
+                    ><label class="span-two"
+                      >JVM Arguments مجاز<input
+                        dir="ltr"
+                        maxlength="1500"
+                        name="jvm_args"
+                        placeholder="-XX:+UseG1GC -XX:MaxGCPauseMillis=200"
+                    /></label>
+                  </div>
+                  <p class="small-note">
+                    پورت عمومی را Railway اختصاص می‌دهد؛ تغییر پورت داخلی نیاز
+                    به اصلاح Target Port در TCP Proxy دارد. JVM فقط از فهرست امن
+                    مانیکس پذیرفته می‌شود؛ دستور Shell آزاد نیست.
+                  </p>
+                  <p class="small-note" id="memoryHelp"></p>
+                  <label class="check-block"
+                    ><input name="autostart" type="checkbox" /><span
+                      >بازیابی وضعیت روشن پس از ری‌دیپلوی Railway</span
+                    ></label
+                  ><label class="check-block"
+                    ><input name="auto_restart" type="checkbox" /><span
+                      >ری‌استارت پس از کرش (با محدودیت تکرار)</span
+                    ></label
+                  >
+                  <div class="form-grid">
+                    <label
+                      >بکاپ هر چند ساعت؟<input
+                        dir="ltr"
+                        max="720"
+                        min="0"
+                        name="backup_hours"
+                        required=""
+                        type="number" /></label
+                    ><label
+                      >تعداد بکاپ خودکار<input
+                        dir="ltr"
+                        max="50"
+                        min="1"
+                        name="backup_keep"
+                        required=""
+                        type="number" /></label
+                    ><label class="span-two"
+                      >ری‌استارت دوره‌ای (ساعت؛ ۰ یعنی خاموش)<input
+                        dir="ltr"
+                        max="720"
+                        min="0"
+                        name="restart_hours"
+                        required=""
+                        type="number"
+                    /></label>
+                  </div>
+                  <label class="check-block"
+                    ><input name="eula_accepted" type="checkbox" /><span
+                      >توافق‌نامهٔ
+                      <a
+                        class="text-link"
+                        href="https://aka.ms/MinecraftEULA"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                        >Minecraft EULA</a
+                      >
+                      را خوانده‌ام و می‌پذیرم.</span
+                    ></label
+                  ><button class="btn btn-primary full" type="submit">
+                    ذخیره تنظیمات
+                  </button>
+                </form>
+              </article>
+              <article class="card padded">
+                <h3><i data-icon="globe"></i> دامنهٔ اختصاصی</h3>
+                <p class="muted">
+                  ثبت دامنه در این فرم فقط آدرس و راهنمای DNS را تنظیم می‌کند؛
+                  رکوردها را خودت در DNS و Railway می‌سازی.
+                </p>
+                <form id="domainForm">
+                  <label
+                    >دامنهٔ پنل (بدون https://)<input
+                      dir="ltr"
+                      name="panel_domain"
+                      placeholder="panel.example.com" /></label
+                  ><label
+                    >دامنهٔ بازی<input
+                      dir="ltr"
+                      name="game_domain"
+                      placeholder="play.example.com"
+                  /></label>
+                  <div class="form-grid">
+                    <label
+                      >آدرس TCP Proxy<input
+                        dir="ltr"
+                        name="proxy_host"
+                        placeholder="xxx.proxy.rlwy.net" /></label
+                    ><label
+                      >پورت عمومی Proxy<input
+                        dir="ltr"
+                        max="65535"
+                        min="0"
+                        name="proxy_port"
+                        type="number"
+                    /></label>
+                  </div>
+                  <button class="btn full" type="submit">ذخیره آدرس‌ها</button>
+                </form>
+                <div class="dns-records" id="dnsRecords"></div>
+                <p class="small-note">
+                  پورت عمومی Railway لزوماً 25565 نیست. Cloudflare برای دامنهٔ
+                  بازی باید روی <b>DNS only</b> باشد؛ نوشتن دامنه به‌تنهایی DNS
+                  را تنظیم نمی‌کند.
+                </p>
+              </article>
+            </div>
+            <article class="card padded spaced-card">
+              <div class="card-heading compact">
+                <h3><i data-icon="sliders"></i> تنظیمات بازی</h3>
+                <span class="mini-tag" dir="ltr">server.properties</span>
+              </div>
+              <form id="propertiesForm">
+                <div class="form-grid four-cols" id="propertiesFields"></div>
+                <button class="btn btn-primary" type="submit">
+                  ذخیره تنظیمات بازی</button
+                ><span class="small-note"
+                  >بازی باید خاموش باشد. پورت داخلی و RCON توسط پنل کنترل
+                  می‌شود.</span
+                >
+              </form>
+            </article>
+            <article class="card spaced-card">
+              <div class="card-heading">
+                <h3>آخرین فعالیت‌ها</h3>
+                <button
+                  aria-label="تازه کردن فعالیت‌ها"
+                  class="icon-btn"
+                  id="refreshAudit"
+                >
+                  <i data-icon="refresh"></i>
+                </button>
+              </div>
+              <div class="audit-list" id="auditRows"></div>
+            </article>
+            <article class="card padded spaced-card">
+              <h3><i data-icon="terminal"></i> فرمان راه‌اندازی ساخته‌شده</h3>
+              <pre class="code-preview" dir="ltr" id="startupPreview">
+اول هسته نصب کن.</pre
+              >
+              <p class="small-note">
+                فقط نمایش argv واقعی Java؛ شل یا دستور سیستم‌عامل قابل‌ویرایش
+                نیست. مسیرها مربوط به کانتینر خودت‌اند.
+              </p>
+            </article>
+          </section>
+          <section class="page" data-section="guide" hidden="">
+            <div class="page-heading">
+              <div>
+                <span class="eyebrow">از دیپلوی تا اولین بلاک</span>
+                <h1>راهنمای سریع</h1>
+                <p>پنل و سرور Minecraft در یک کانتینر، با دو ورودی شبکه.</p>
+              </div>
+            </div>
+            <div class="guide-grid">
+              <article class="card padded">
+                <span class="step-number">01</span>
+                <h3>Volume دائمی</h3>
+                <p>
+                  در Railway یک Volume به همین سرویس وصل کن و Mount Path را
+                  دقیقاً <code>/data</code> بگذار. بدون آن، اجرای پروژه در
+                  Railway عمداً متوقف می‌شود تا سیو با دیپلوی بعدی از بین نرود.
+                </p>
+                <p class="muted">
+                  Replicas = 1 · Serverless / App Sleeping = خاموش
+                </p>
+              </article>
+              <article class="card padded">
+                <span class="step-number">02</span>
+                <h3>آدرس پنل</h3>
+                <p>
+                  از Settings → Networking یک دامنهٔ HTTP بساز؛ Target Port
+                  برابر <code>8080</code> است (یا مقدار PORT). دامنهٔ اختصاصی
+                  پنل را از Custom Domain همان بخش اضافه و رکوردهای خواسته‌شده
+                  را در DNS ثبت کن.
+                </p>
+              </article>
+              <article class="card padded">
+                <span class="step-number">03</span>
+                <h3>آدرس بازی</h3>
+                <p>
+                  در Settings → Networking، TCP Proxy را برای پورت داخلی
+                  <code>25565</code> فعال کن. آدرس و پورت عمومی ایجادشده را در
+                  بخش دامنه‌های پنل وارد کن. بازیکن‌ها همین
+                  <code>host:port</code> را در Java Edition وارد می‌کنند.
+                </p>
+                <button class="btn btn-small" data-goto="settings">
+                  تنظیم آدرس اتصال
+                </button>
+              </article>
+              <article class="card padded">
+                <span class="step-number">04</span>
+                <h3>نسخه، مود، بازی!</h3>
+                <p>
+                  یک هسته در بخش نسخه‌ها نصب کن. برای مود،
+                  Fabric/Forge/NeoForge؛ برای پلاگین، Paper/Purpur. EULA را
+                  بخوان و بپذیر. بعد روشن کن و در کنسول منتظر پیام
+                  <code>Done</code> بمان.
+                </p>
+                <button class="btn btn-small" data-goto="versions">
+                  انتخاب نسخه
+                </button>
+              </article>
+            </div>
+            <div class="notice warning">
+              <i data-icon="info"></i
+              ><span
+                >این پنل مخصوص یک سرور Minecraft Java و یک مالک است؛ VPS کامل،
+                SSH عمومی، فروشگاه هاست یا سیستم چندکاربرهٔ ایزوله نیست. Bedrock
+                و Geyser به UDP عمومی نیاز دارند و در این استقرار پشتیبانی
+                نمی‌شوند.</span
+              >
+            </div>
+            <article class="card padded spaced-card">
+              <h3>چند نکته که به کارت می‌آید</h3>
+              <ul class="guide-list">
+                <li>
+                  خاموش کردن در پنل فقط فرایند بازی را می‌بندد؛ خود پنل و سرویس
+                  Railway همچنان روشن و ممکن است هزینه‌دار باشند.
+                </li>
+                <li>
+                  RAM بازی علاوه بر heap، حافظهٔ native هم مصرف می‌کند. برای
+                  مودپک‌ها معمولاً منابع بیشتری لازم است.
+                </li>
+                <li>
+                  لودر خودِ مود نیست: برای Fabric بسیاری از مودها Fabric API
+                  می‌خواهند. نصب Modrinth وابستگی‌های ضروری قابل‌تشخیص را هم نصب
+                  می‌کند.
+                </li>
+                <li>
+                  فایل‌های runtime زیر <code>/data/engines</code> هستند و
+                  فایل‌های بازی زیر <code>/data/server</code>. دیتابیس پنل و
+                  نشست‌ها در فایل‌منیجر بازی نمایش داده نمی‌شوند.
+                </li>
+                <li>
+                  README فارسی داخل پروژه، نصب Railway، DNS، وارد کردن سیو و رفع
+                  خطاها را کامل توضیح می‌دهد.
+                </li>
+              </ul>
+              <div class="row-actions">
+                <a
+                  class="btn btn-small"
+                  href="https://docs.railway.com/networking/tcp-proxy"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                  >مستندات TCP Proxy <i data-icon="external"></i></a
+                ><a
+                  class="btn btn-small"
+                  href="https://aka.ms/MinecraftEULA"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                  >Minecraft EULA <i data-icon="external"></i
+                ></a>
+              </div>
+            </article>
+          </section>
+          <section class="page" data-section="worlds" hidden="">
+            <div class="page-heading">
+              <div>
+                <span class="eyebrow">هر دنیا، یک ماجراجویی</span>
+                <h1>دنیاهای مانیکس</h1>
+                <p>سیو را وارد کن، دنیا را عوض کن و خروجی سالم بگیر.</p>
+              </div>
+              <button class="btn" id="refreshWorlds">
+                <i data-icon="refresh"></i> تازه کردن
+              </button>
+            </div>
+            <div class="notice warning">
+              <i data-icon="shield"></i
+              ><span
+                >ساخت، تغییر، وارد کردن و حذف دنیا نیاز به بازیِ خاموش دارد.
+                انتخاب دنیا فقط level-name را عوض می‌کند؛ تبدیل ابعاد یا فرمت
+                نسخه‌ها خودکار نیست. حذف دنیای فعال ممنوع است.</span
+              >
+            </div>
+            <div class="two-column">
+              <article class="card padded">
+                <h3>دنیای تازه</h3>
+                <form id="worldCreateForm">
+                  <label
+                    >نام پوشه<input
+                      maxlength="64"
+                      name="name"
+                      placeholder="world-new"
+                      required="" /></label
+                  ><button class="btn btn-primary" data-mutate="" type="submit">
+                    <i data-icon="folder-plus"></i> ساخت پوشهٔ دنیا
+                  </button>
+                </form>
+                <p class="small-note">
+                  بعد از ساخت، فعالش کن و بازی را روشن کن؛ خود Minecraft دنیا را
+                  تولید می‌کند.
+                </p>
+              </article>
+              <article class="card padded">
+                <h3>وارد کردن World ZIP</h3>
+                <form id="worldImportForm">
+                  <label
+                    >نام جدید دنیا<input
+                      maxlength="64"
+                      name="name"
+                      placeholder="imported-world"
+                      required="" /></label
+                  ><label
+                    >سیو ZIP<input
+                      accept=".zip"
+                      name="file"
+                      required=""
+                      type="file" /></label
+                  ><button class="btn" data-mutate="" type="submit">
+                    <i data-icon="upload"></i> آپلود و وارد کردن
+                  </button>
+                </form>
+                <p class="small-note">
+                  level.dat در ریشه یا یک پوشهٔ دنیای اصلی؛ ابعاد Paper هم در
+                  کنار پوشهٔ اصلی قابل‌واردکردن‌اند. فایل موجود را بی‌خبر
+                  بازنویسی نمی‌کند.
+                </p>
+              </article>
+            </div>
+            <article class="card spaced-card">
+              <div class="card-heading">
+                <h3>دنیاهای ذخیره‌شده</h3>
+                <span class="mini-tag" id="activeWorld"></span>
+              </div>
+              <div class="table-scroll">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>دنیا</th>
+                      <th>حجم / ابعاد</th>
+                      <th>وضعیت</th>
+                      <th>عملیات</th>
+                    </tr>
+                  </thead>
+                  <tbody id="worldRows"></tbody>
+                </table>
+              </div>
+            </article>
+          </section>
+          <section class="page" data-section="packs" hidden="">
+            <div class="page-heading">
+              <div>
+                <span class="eyebrow">ظاهر دنیات، به انتخاب تو</span>
+                <h1>ریسورس‌پک</h1>
+                <p>فایل ZIP را نگه دار و تنظیمات دانلود کلاینت را فعال کن.</p>
+              </div>
+              <div class="row-actions">
+                <button class="btn btn-primary" data-mutate="" id="uploadPack">
+                  <i data-icon="upload"></i> آپلود پک ZIP</button
+                ><input
+                  accept=".zip"
+                  hidden=""
+                  id="packUploadInput"
+                  type="file"
+                /><button
+                  aria-label="تازه کردن پک‌ها"
+                  class="icon-btn"
+                  id="refreshPacks"
+                >
+                  <i data-icon="refresh"></i>
+                </button>
+              </div>
+            </div>
+            <div class="notice">
+              <i data-icon="info"></i
+              ><span
+                >ZIP باید pack.mcmeta در ریشه داشته باشد. نسخهٔ پک باید با
+                Minecraft کلاینت سازگار باشد. لینک دانلود دارای شناسهٔ تصادفی و
+                بدون نیاز به ورود است تا بازی بتواند آن را بگیرد؛ فایل خصوصی را
+                اینجا قرار نده.</span
+              >
+            </div>
+            <article class="card padded">
+              <form id="packActivateForm">
+                <div class="form-grid">
+                  <label
+                    >پک فعال<select id="packSelect" name="id">
+                      <option value="">بدون ریسورس‌پک</option>
+                    </select></label
+                  ><label
+                    >آدرس HTTPS عمومی پنل<input
+                      dir="ltr"
+                      maxlength="300"
+                      name="base_url"
+                      placeholder="https://panel.example.com" /></label
+                  ><label class="span-two"
+                    >پیام به بازیکن<input
+                      maxlength="200"
+                      name="prompt"
+                      placeholder="برای تجربهٔ کامل، پک مانیکس را فعال کن."
+                  /></label>
+                </div>
+                <label class="check-block"
+                  ><input name="required" type="checkbox" /><span
+                    >دریافت پک برای ورود الزامی باشد (در نسخه‌های
+                    پشتیبان).</span
+                  ></label
+                ><button class="btn btn-primary" data-mutate="" type="submit">
+                  ذخیره و فعال‌سازی
+                </button>
+                <p class="small-note">
+                  بازی باید خاموش باشد؛ تغییر از روشن‌کردن بعدی اعمال می‌شود.
+                  SHA-1 خودکار محاسبه و همراه ZIP در بکاپ بازی نگه‌داری می‌شود.
+                </p>
+              </form>
+            </article>
+            <article class="card spaced-card">
+              <div class="card-heading"><h3>پک‌های ذخیره‌شده</h3></div>
+              <div class="table-scroll">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>پک</th>
+                      <th>حجم / فرمت</th>
+                      <th>وضعیت</th>
+                      <th>عملیات</th>
+                    </tr>
+                  </thead>
+                  <tbody id="packRows"></tbody>
+                </table>
+              </div>
+            </article>
+          </section>
+          <section class="page" data-section="schedules" hidden="">
+            <div class="page-heading">
+              <div>
+                <span class="eyebrow">برای وقتی که سرت شلوغ است</span>
+                <h1>زمان‌بندی مانیکس</h1>
+                <p>Task یک‌باره، روزانه یا هفتگی با منطقهٔ زمانی مشخص.</p>
+              </div>
+              <button class="btn" id="refreshSchedules">
+                <i data-icon="refresh"></i> تازه کردن
+              </button>
+            </div>
+            <div class="notice warning">
+              <i data-icon="clock"></i
+              ><span
+                >خود سرویس Railway باید روشن باشد. اجرای بیش از ۱۰ دقیقه
+                عقب‌افتاده تکرار نمی‌شود؛ فقط نوبت بعدی تنظیم می‌شود. عملیات
+                طولانی هم‌زمان اجرا نمی‌شوند. ساعت‌ها بر اساس منطقهٔ زمانی
+                فرم‌اند، نه ساعت مرورگر.</span
+              >
+            </div>
+            <article class="card padded">
+              <h3 id="taskFormTitle">Task جدید</h3>
+              <form id="taskForm">
+                <input id="editingTask" type="hidden" />
+                <div class="form-grid four-cols">
+                  <label
+                    >نام Task<input
+                      maxlength="80"
+                      name="name"
+                      required="" /></label
+                  ><label
+                    >عملیات<select id="taskAction" name="action">
+                      <option value="restart">ری‌استارت</option>
+                      <option value="start">روشن کردن</option>
+                      <option value="stop">توقف امن</option>
+                      <option value="backup">بکاپ خودکار</option>
+                      <option value="command">دستور Minecraft</option>
+                    </select></label
+                  ><label
+                    >تکرار<select id="taskMode" name="mode">
+                      <option value="daily">روزانه</option>
+                      <option value="weekly">هفتگی</option>
+                      <option value="once">یک‌باره</option>
+                    </select></label
+                  ><label
+                    >منطقه زمانی IANA<input
+                      dir="ltr"
+                      list="timezones"
+                      maxlength="80"
+                      name="timezone"
+                      required=""
+                      value="Asia/Tehran" /><datalist id="timezones">
+                      <option value="Asia/Tehran"></option>
+                      <option value="UTC"></option>
+                      <option value="America/Los_Angeles"></option>
+                      <option value="Europe/London"></option></datalist></label
+                  ><label id="taskTimeLabel"
+                    >ساعت اجرا<input
+                      dir="ltr"
+                      name="time"
+                      type="time"
+                      value="03:00" /></label
+                  ><label hidden="" id="taskWeekdayLabel"
+                    >روز هفته<select name="weekday">
+                      <option value="5">شنبه</option>
+                      <option value="6">یکشنبه</option>
+                      <option value="0">دوشنبه</option>
+                      <option value="1">سه‌شنبه</option>
+                      <option value="2">چهارشنبه</option>
+                      <option value="3">پنجشنبه</option>
+                      <option selected="" value="4">جمعه</option>
+                    </select></label
+                  ><label class="span-two" hidden="" id="taskOnceLabel"
+                    >تاریخ و ساعت محلیِ منطقهٔ بالا<input
+                      dir="ltr"
+                      name="at"
+                      type="datetime-local" /></label
+                  ><label class="span-two" hidden="" id="taskCommandLabel"
+                    >یک خط دستور کنسول<input
+                      dir="ltr"
+                      maxlength="1024"
+                      name="command"
+                      placeholder="say Restart in 5 minutes"
+                  /></label>
+                </div>
+                <label class="check-block"
+                  ><input checked="" name="enabled" type="checkbox" /><span
+                    >Task فعال باشد</span
+                  ></label
+                >
+                <div class="row-actions">
+                  <button class="btn btn-primary" type="submit">
+                    ذخیره Task</button
+                  ><button
+                    class="btn"
+                    hidden=""
+                    id="cancelTaskEdit"
+                    type="button"
+                  >
+                    لغو ویرایش
+                  </button>
+                </div>
+              </form>
+            </article>
+            <article class="card spaced-card">
+              <div class="card-heading">
+                <h3>Taskهای ذخیره‌شده</h3>
+                <span class="mini-tag" id="taskCount"></span>
+              </div>
+              <div class="table-scroll">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>نام و عملیات</th>
+                      <th>اجرای بعدی / منطقه</th>
+                      <th>آخرین اجرا</th>
+                      <th>وضعیت</th>
+                      <th>عملیات</th>
+                    </tr>
+                  </thead>
+                  <tbody id="taskRows"></tbody>
+                </table>
+              </div>
+            </article>
+          </section>
+          <section class="page" data-section="account" hidden="">
+            <div class="page-heading">
+              <div>
+                <span class="eyebrow">کنترل امن، برای صاحب سرور</span>
+                <h1>حساب و امنیت مانیکس</h1>
+                <p>یک مالک؛ نشست‌های واقعی، ۲FA و API Key با دسترسی محدود.</p>
+              </div>
+              <button class="btn" id="refreshAccount">
+                <i data-icon="refresh"></i> تازه کردن
+              </button>
+            </div>
+            <div class="two-column">
+              <article class="card padded">
+                <h3>پروفایل مالک</h3>
+                <form id="profileForm">
+                  <label
+                    >نام نمایشی<input
+                      maxlength="80"
+                      name="display_name"
+                      required="" /></label
+                  ><label
+                    >ایمیل تماس<input
+                      dir="ltr"
+                      maxlength="254"
+                      name="email"
+                      type="email" /></label
+                  ><button class="btn" type="submit">ذخیره پروفایل</button>
+                </form>
+                <p class="small-note">
+                  ایمیل فقط برای ثبت اطلاعات است؛ تأیید ایمیل، SMTP و بازیابی
+                  خودکار ایمیلی وجود ندارد. نام کاربری ورود از PANEL_USERNAME
+                  تنظیم می‌شود.
+                </p>
+              </article>
+              <article class="card padded">
+                <h3>تغییر رمز عبور</h3>
+                <form id="passwordForm">
+                  <label
+                    >رمز فعلی<input
+                      autocomplete="current-password"
+                      maxlength="1024"
+                      name="password"
+                      required=""
+                      type="password" /></label
+                  ><label
+                    >رمز جدید<input
+                      autocomplete="new-password"
+                      maxlength="256"
+                      minlength="12"
+                      name="new_password"
+                      required=""
+                      type="password" /></label
+                  ><label
+                    >تکرار رمز جدید<input
+                      autocomplete="new-password"
+                      maxlength="256"
+                      minlength="12"
+                      name="confirm"
+                      required=""
+                      type="password" /></label
+                  ><button class="btn btn-primary" type="submit">
+                    عوض کردن رمز
+                  </button>
+                </form>
+                <p class="small-note">
+                  همهٔ نشست‌ها و API Keyها لغو می‌شوند. رمز تغییرکرده بعد از
+                  Redeploy حفظ می‌شود؛ تغییر واقعی PANEL_PASSWORD در Railway راه
+                  بازیابی مدیریتی است.
+                </p>
+              </article>
+            </div>
+            <article class="card padded spaced-card">
+              <div class="card-heading compact">
+                <h3><i data-icon="shield"></i> ورود دومرحله‌ای TOTP</h3>
+                <span class="mini-tag" id="factorStatus"></span>
+              </div>
+              <p class="muted">
+                با کد شش‌رقمی برنامهٔ Authenticator یا کد بازیابی یک‌بارمصرف.
+                ساعت گوشی باید دقیق باشد؛ Secret به‌صورت دستی قابل‌افزودن است.
+              </p>
+              <p class="small-note" id="factorRecovery"></p>
+              <div class="row-actions spaced-actions">
+                <button class="btn btn-primary" id="enableFactor">
+                  فعال کردن ۲FA</button
+                ><button
+                  class="btn btn-danger-ghost"
+                  hidden=""
+                  id="disableFactor"
+                >
+                  غیرفعال کردن ۲FA
+                </button>
+              </div>
+            </article>
+            <article class="card spaced-card">
+              <div class="card-heading">
+                <h3>دستگاه‌ها / نشست‌ها</h3>
+                <button class="btn btn-small btn-danger-ghost" id="logoutAll">
+                  خروج از تمام دستگاه‌ها
+                </button>
+              </div>
+              <div class="device-list" id="deviceRows"></div>
+            </article>
+            <div class="two-column spaced-card">
+              <article class="card padded">
+                <h3>API Key جدید</h3>
+                <form id="keyForm">
+                  <div class="form-grid">
+                    <label
+                      >نام کلید<input
+                        maxlength="80"
+                        name="name"
+                        placeholder="monitoring"
+                        required="" /></label
+                    ><label
+                      >اعتبار (روز)<input
+                        dir="ltr"
+                        max="365"
+                        min="1"
+                        name="days"
+                        required=""
+                        type="number"
+                        value="90"
+                    /></label>
+                  </div>
+                  <label
+                    >رمز فعلی<input
+                      autocomplete="current-password"
+                      maxlength="1024"
+                      name="password"
+                      required=""
+                      type="password"
+                  /></label>
+                  <div class="scope-grid" id="keyScopes"></div>
+                  <button class="btn btn-primary" type="submit">
+                    ساخت کلید
+                  </button>
+                </form>
+                <p class="small-note">
+                  توکن فقط یک بار نمایش داده می‌شود. API Key راهی برای ساخت
+                  کاربر نیست؛ هر Scope مربوط به همین سرور است. دسترسی account،
+                  ۲FA، نصب هسته و Taskها با کلید مجاز نیست.
+                </p>
+              </article>
+              <article class="card padded">
+                <h3>کلیدهای صادرشده</h3>
+                <div class="key-list" id="keyRows"></div>
+              </article>
+            </div>
+            <article class="card spaced-card">
+              <div class="card-heading">
+                <h3>تاریخچهٔ ورود و عملیات حساب</h3>
+              </div>
+              <div class="audit-list" id="loginHistoryRows"></div>
+            </article>
+          </section>
+        </main>
+        <footer class="main-footer">
+          <span>مانیکس · دنیای تو، کنترل تو</span
+          ><span>فایل‌ها روی فضای خودت، کنترل در دست خودت</span>
+        </footer>
+      </div>
+    </div>
+    <dialog class="modal" id="promptDialog">
+      <form id="promptForm">
+        <button
+          aria-label="بستن"
+          class="modal-close icon-btn"
+          id="promptClose"
+          type="button"
+        >
+          <i data-icon="x"></i></button
+        ><span class="notice-symbol" data-icon="info" id="promptIcon"></span>
+        <h2 id="promptTitle"></h2>
+        <p class="muted" id="promptDescription"></p>
+        <div id="promptFields"></div>
+        <div class="modal-actions">
+          <button class="btn btn-primary" id="promptSubmit" type="submit">
+            تأیید</button
+          ><button class="btn" id="promptCancel" type="button">انصراف</button>
+        </div>
+      </form>
+    </dialog>
+    <dialog class="modal editor-modal" id="editorDialog">
+      <div class="card-heading">
+        <h3><i data-icon="file"></i><span dir="ltr" id="editorName"></span></h3>
+        <button aria-label="بستن ویرایشگر" class="icon-btn" id="editorClose">
+          <i data-icon="x"></i>
+        </button>
+      </div>
+      <textarea
+        aria-label="محتوای فایل"
+        class="code-editor"
+        dir="ltr"
+        id="editorText"
+        spellcheck="false"
+      ></textarea>
+      <div class="editor-footer">
+        <span class="small-note">UTF-8 · حداکثر ۱ MB · Ctrl / Cmd + S</span
+        ><button class="btn btn-primary" id="editorSave">
+          <i data-icon="save"></i> ذخیره فایل
+        </button>
+      </div>
+    </dialog>
+    <div aria-live="polite" class="toasts" id="toasts"></div>
+    <dialog class="modal secret-modal" id="secretDialog">
+      <div class="card-heading compact">
+        <h3 id="secretTitle"></h3>
+        <button
+          aria-label="بستن اطلاعات محرمانه"
+          class="icon-btn"
+          id="closeSecret"
+        >
+          <i data-icon="x"></i>
+        </button>
+      </div>
+      <p class="muted" id="secretHint"></p>
+      <textarea
+        aria-label="اطلاعات محرمانه"
+        class="code-editor"
+        dir="ltr"
+        id="secretValue"
+        readonly=""
+      ></textarea>
+      <div class="row-actions">
+        <button class="btn" id="copySecret"><i data-icon="copy"></i> کپی</button
+        ><button class="btn btn-primary" id="acknowledgeSecret">
+          ذخیره کردم؛ بستن
+        </button>
+      </div>
+    </dialog>
+  </body>
+</html>

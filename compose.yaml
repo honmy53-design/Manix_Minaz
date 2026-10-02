@@ -1,0 +1,28 @@
+# مانیکس / Manix — local Docker option; Railway uses Dockerfile directly.
+services:
+  manix:
+    build: .
+    restart: unless-stopped
+    stop_grace_period: 100s
+    ports:
+      - "127.0.0.1:8080:8080"
+      - "25565:25565/tcp"
+    environment:
+      PANEL_USERNAME: ${PANEL_USERNAME:-admin}
+      PANEL_PASSWORD: ${PANEL_PASSWORD:?Set a strong PANEL_PASSWORD in .env}
+      DATA_DIR: /data
+      PORT: "8080"
+      MC_PORT: "25565"
+      MC_MEMORY_MB: ${MC_MEMORY_MB:-1024}
+      EULA_ACCEPTED: ${EULA_ACCEPTED:-false}
+      MAX_UPLOAD_MB: ${MAX_UPLOAD_MB:-512}
+      MAX_ARCHIVE_MB: ${MAX_ARCHIVE_MB:-8192}
+      SESSION_HOURS: ${SESSION_HOURS:-24}
+      STOP_TIMEOUT: ${STOP_TIMEOUT:-45}
+      MANIX_RESET_2FA: ${MANIX_RESET_2FA:-false}
+    volumes:
+      - manix-data:/data
+    # Set below the Docker host's available RAM, and above the game's JVM heap.
+    mem_limit: ${SERVICE_MEMORY_LIMIT:-3g}
+volumes:
+  manix-data:

@@ -1,0 +1,33 @@
+راهنمای سریع مانیکس / Manix Railway — نسخهٔ 1.1.0
+
+۱) ZIP را استخراج کن؛ محتویات پوشهٔ manix-railway را در ریشهٔ Repository بگذار، نه خود ZIP را.
+۲) Railway → New Project → Deploy from GitHub Repo، با Dockerfile همین سورس.
+۳) Volume را به همان سرویس وصل کن؛ Mount Path دقیقاً /data و DATA_DIR=/data.
+۴) PANEL_USERNAME=admin و PANEL_PASSWORD اختصاصی خودت، حداقل ۱۲ کاراکتر.
+   نمونهٔ .env.example قابل‌استفاده نیست و عمداً رد می‌شود. رمز/توکن واقعی را کامیت نکن.
+۵) PORT=8080 ، MC_PORT=25565 ، RAILWAY_RUN_UID=0. یک worker/replica، App Sleeping خاموش.
+   Heap بازی جدا از RAM سرویس است؛ ابتدا سهمیهٔ کافی را در Railway بده.
+۶) Networking → دامنهٔ HTTP با target 8080، و TCP Proxy بازی با internal 25565.
+   آدرس بازی = hostname:پورت عمومی خروجی Proxy، نه لزوماً 25565.
+۷) Redeploy، ورود از HTTP/HTTPS، نصب هسته، خواندن و پذیرش EULA توسط خودت، Start و انتظار Done.
+۸) آدرس Proxy عمومی را در تنظیمات ثبت کن؛ دامنهٔ اختصاصی نیاز به DNS واقعی CNAME/SRV دارد.
+
+بخش‌های تازه: Kill اجباری، کپی/انتقال/حذف گروهی فایل، World ZIP و انتخاب دنیا، ریسورس‌پک،
+Task یک‌باره/روزانه/هفتگی، حساب/تغییر رمز/۲FA/نشست‌ها/API Key، JVM مجاز، پورت داخلی، Light Mode.
+
+رمز عوض‌شده از UI با Redeploy معمولی حفظ می‌شود. بازیابی فراموشی:
+PANEL_PASSWORD را در Railway به مقدار واقعاً جدید تغییر بده و Redeploy کن.
+اگر TOTP/کدهای بازیابی را هم نداری: MANIX_RESET_2FA=true برای یک Redeploy، بعد فوراً حذفش کن.
+
+این نسخه یک مالک و یک Minecraft Java دارد؛ VPS/فروشگاه پلن/ثبت‌نام/Subuser ایزوله/چندنود،
+MySQL/MariaDB provisioning، پورت عمومی خودکار یا Bedrock/UDP پیاده نشده‌اند. دکمهٔ نمایشی ندارند.
+
+README.md             راهنمای کامل نصب، همهٔ بخش‌ها، حساب، امنیت، هزینه و محدودیت‌ها
+/docs/FEATURES.md      وضعیت تک‌تک ۲۶۸ ردیف فهرست درخواستی
+/docs/API.md           API/Scope واقعی
+/docs/RAILWAY.md       چک‌لیست provider و ارتقا با همان Volume
+/docs/TROUBLESHOOTING.md  رفع خطاها
+/docs/TESTING.md       تست‌های موفق و کارهای هنوز اجرا‌نشده
+
+قبل از Redeploy بازی را امن Stop، Job را تمام و بکاپ مهم را خارج از Volume دانلود کن.
+ZIP شامل سورس است، نه دنیای واقعی، JARهای Minecraft یا credential آماده.
